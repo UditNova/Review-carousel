@@ -29,32 +29,40 @@ body {
   width: 90vw;
   max-width: 1300px;
   overflow: hidden;
-  padding: 20px 0;
+  padding: 20px 0 60px 0;
   border-radius: 16px;
 }
 
 .ribbon-track {
   display: flex;
   gap: 16px;
-  align-items: flex-end; /* Sticks all cards firmly to the bottom baseline */
-  height: 400px;
+  align-items: flex-end;
+  height: 420px;
   will-change: transform;
 }
 
-/* Base styling for slots 1 to 4 */
-.ribbon-card {
+/* Base wrapper for card + hover info */
+.ribbon-card-wrapper {
   width: calc((100% - (4 * 16px)) / 5);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Base styling for slots 1 to 4 with synchronized 0.8s transition */
+.ribbon-card {
+  width: 100%;
   height: 240px;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   background-color: #1e1e1e;
-  flex-shrink: 0;
   position: relative;
-  cursor: pointer;
-  transform-origin: bottom right; /* Anchors scaling from the bottom right so the bottom line stays fixed */
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease,
-    border 0.5s ease, height 0.5s ease;
+  transform-origin: bottom right;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.8s ease,
+    border 0.8s ease, height 0.8s cubic-bezier(0.25, 1, 0.5, 1);
   border: 2px solid transparent;
 }
 
@@ -63,24 +71,52 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* 5th Slot Main Attraction - Perfectly aligned at the bottom baseline */
-.ribbon-card.main-attraction {
+/* 5th Slot Main Attraction */
+.ribbon-card-wrapper.main-attraction .ribbon-card {
   height: 380px;
-  transform: scale(
-    1.03
-  ); /* Scaled slightly to look prominent without overflowing the bottom */
+  transform: scale(1.03);
   z-index: 5;
 }
 
-.ribbon-card.main-attraction img {
+.ribbon-card-wrapper.main-attraction .ribbon-card img {
   transform: scale(1.02);
+}
+
+/* Hover Details Panel for Slots 1-4 */
+.card-details {
+  margin-top: 12px;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  text-align: left;
+  pointer-events: none;
+}
+
+.ribbon-card-wrapper:not(.main-attraction):hover .card-details {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  margin-bottom: 2px;
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.55);
 }
 
 /* Control Section */
 .controls {
-  margin-top: 40px;
+  margin-top: 20px;
   z-index: 10;
 }
 

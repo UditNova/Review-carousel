@@ -9,19 +9,26 @@ import reviewer4 from "./assets/reviewer4.jpeg";
 import reviewer5 from "./assets/reviewer5.jpeg";
 
 const baseItems = [
-  { id: 1, image: reviewer1, name: "Ashley Right" },
-  { id: 2, image: reviewer2, name: "Marcus Vance" },
-  { id: 3, image: reviewer3, name: "Elena Rostova" },
-  { id: 4, image: reviewer4, name: "Julian Thorne" },
-  { id: 5, image: reviewer5, name: "Sophia Chen" },
+  { id: 1, image: reviewer1, name: "Ashley Right", title: "Product Designer" },
+  { id: 2, image: reviewer2, name: "Marcus Vance", title: "Software Engineer" },
+  {
+    id: 3,
+    image: reviewer3,
+    name: "Elena Rostova",
+    title: "Marketing Director",
+  },
+  { id: 4, image: reviewer4, name: "Julian Thorne", title: "UI/UX Lead" },
+  { id: 5, image: reviewer5, name: "Sophia Chen", title: "Creative Producer" },
 ];
 
-// Triplicated buffer for infinite seamless looping
-const ribbonItems = [...baseItems, ...baseItems, ...baseItems];
+// Create a large repeated buffer (20 sets) for an effectively infinite ribbon without abrupt resets
+const REPEAT_COUNT = 20;
+const ribbonItems = Array(REPEAT_COUNT).fill(baseItems).flat();
+const INITIAL_INDEX = baseItems.length * 10; // Start right in the middle
 
 export default function App() {
   const [animating, setAnimating] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(baseItems.length);
+  const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
   const [activeSlotIndex, setActiveSlotIndex] = useState(4); // 5th slot (index 4) is default main attraction
 
   const trackRef = useRef(null);
@@ -47,22 +54,15 @@ export default function App() {
     const track = trackRef.current;
     const shiftDist = getShiftDistance();
 
+    // Update index immediately so sizing transitions trigger simultaneously with GSAP slide
+    setCurrentIndex(newTrackIndex);
+    setActiveSlotIndex(targetActiveSlot);
+
     gsap.to(track, {
       x: -newTrackIndex * shiftDist,
       duration: 0.8,
       ease: "power2.inOut",
       onComplete: () => {
-        let finalIndex = newTrackIndex;
-        // Silent loop reset if bounds are exceeded
-        if (finalIndex <= baseItems.length / 2) {
-          finalIndex += baseItems.length;
-          gsap.set(track, { x: -finalIndex * shiftDist });
-        } else if (finalIndex >= baseItems.length * 2.5) {
-          finalIndex -= baseItems.length;
-          gsap.set(track, { x: -finalIndex * shiftDist });
-        }
-        setCurrentIndex(finalIndex);
-        setActiveSlotIndex(targetActiveSlot);
         setAnimating(false);
       },
     });
@@ -91,18 +91,23 @@ export default function App() {
         <div ref={trackRef} className="ribbon-track">
           {ribbonItems.map((item, index) => {
             const relativePosition = index - currentIndex;
-            const isMainAttraction =
-              relativePosition === activeSlotIndex && !animating;
+            const isMainAttraction = relativePosition === activeSlotIndex;
 
             return (
               <div
                 key={`${item.id}-${index}`}
-                className={`ribbon-card ${
+                className={`ribbon-card-wrapper ${
                   isMainAttraction ? "main-attraction" : ""
                 }`}
                 onClick={() => handleCardClick(index)}
               >
-                <img src={item.image} alt={item.name} />
+                <div className="ribbon-card">
+                  <img src={item.image} alt={item.name} />
+                </div>
+                <div className="card-details">
+                  <div className="card-name">{item.name}</div>
+                  <div className="card-title">{item.title}</div>
+                </div>
               </div>
             );
           })}
