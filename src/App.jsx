@@ -141,8 +141,6 @@ export default function App() {
         </div>
 
         <h2 className="vertical-heading">Reviews</h2>
-
-        <div className="decorative-circle" />
       </aside>
 
       {/* REVIEWER IMAGE RIBBON */}

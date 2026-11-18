@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
+/* ==============================
+   GLOBAL RESET
+============================== */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -14,6 +18,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ==============================
+   MAIN CONTAINER
+============================== */
+
 .ribbon-container {
   width: 100%;
   height: 100vh;
@@ -23,7 +31,9 @@ body {
   background: #ffffff;
 }
 
-/* LEFT PANEL */
+/* ==============================
+   LEFT PANEL
+============================== */
 
 .left-panel {
   position: absolute;
@@ -54,27 +64,24 @@ body {
   letter-spacing: -0.4px;
 }
 
-.decorative-circle {
-  position: absolute;
-  top: 85px;
-  left: 26px;
-  width: 45px;
-  height: 45px;
-  border: 1px solid #dedede;
-  border-radius: 50%;
-}
-
-/* MAIN IMAGE RIBBON */
+/* ==============================
+   RIBBON VIEWPORT
+   EXACTLY 50% WIDTH
+============================== */
 
 .ribbon-viewport {
   position: absolute;
   left: 0;
   bottom: 63px;
-  width: 62%;
+  width: 50vw;
   height: 485px;
   overflow: hidden;
   padding: 0;
 }
+
+/* ==============================
+   RIBBON TRACK
+============================== */
 
 .ribbon-track {
   display: flex;
@@ -85,10 +92,12 @@ body {
   will-change: transform;
 }
 
-/* CARD WRAPPERS */
+/* ==============================
+   FOUR SMALL CARDS
+============================== */
 
 .ribbon-card-wrapper {
-  width: 102px;
+  width: calc((50vw - 236px) / 4);
   height: 100%;
   flex-shrink: 0;
   display: flex;
@@ -97,12 +106,18 @@ body {
   cursor: pointer;
 }
 
+/* ==============================
+   CARD DESIGN
+============================== */
+
 .ribbon-card {
   width: 100%;
   height: 140px;
+  border-radius: 0;
   overflow: hidden;
   position: relative;
   background: #eeeeee;
+
   transition: height 0.8s cubic-bezier(0.25, 1, 0.5, 1),
     transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -114,13 +129,17 @@ body {
   display: block;
   user-select: none;
   pointer-events: none;
+
   transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* MAIN ATTRACTION */
+/* ==============================
+   FIFTH CARD - MAIN ATTRACTION
+============================== */
 
 .ribbon-card-wrapper.main-attraction {
   width: 164px;
+  flex-shrink: 0;
   z-index: 5;
   cursor: default;
 }
@@ -135,14 +154,16 @@ body {
   transform: scale(1.02);
 }
 
-/* TESTIMONIAL PANEL */
+/* ==============================
+   RIGHT TESTIMONIAL PANEL
+============================== */
 
 .testimonial-panel {
   position: absolute;
   top: 34%;
-  left: 70%;
-  width: 28%;
-  max-width: 340px;
+  left: 55%;
+  width: 26%;
+  max-width: 350px;
   z-index: 10;
 }
 
@@ -172,11 +193,13 @@ body {
   max-width: 350px;
 }
 
-/* NAVIGATION BUTTON */
+/* ==============================
+   NAVIGATION BUTTON
+============================== */
 
 .controls {
   position: absolute;
-  left: 70%;
+  left: 55%;
   bottom: 10%;
   z-index: 20;
 }
@@ -187,11 +210,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+
   border: none;
   border-radius: 50%;
+
   background: #ffc400;
   color: #111111;
+
   cursor: pointer;
+
   transition: transform 0.25s ease, background 0.25s ease;
 }
 
@@ -208,7 +235,9 @@ body {
   cursor: not-allowed;
 }
 
-/* TABLET */
+/* ==============================
+   TABLET RESPONSIVE
+============================== */
 
 @media (max-width: 1024px) {
   .left-panel {
@@ -216,7 +245,11 @@ body {
   }
 
   .ribbon-viewport {
-    width: 65%;
+    width: 50vw;
+  }
+
+  .ribbon-card-wrapper.main-attraction {
+    width: 140px;
   }
 
   .testimonial-panel {
@@ -229,17 +262,17 @@ body {
   }
 }
 
-/* MOBILE */
+/* ==============================
+   MOBILE RESPONSIVE
+============================== */
 
 @media (max-width: 700px) {
-  body {
-    overflow: hidden;
-  }
-
   .ribbon-container {
     min-height: 600px;
     height: 100svh;
   }
+
+  /* LEFT PANEL */
 
   .left-panel {
     left: 7%;
@@ -263,6 +296,8 @@ body {
     display: none;
   }
 
+  /* TESTIMONIAL */
+
   .testimonial-panel {
     top: 15%;
     left: 27%;
@@ -279,8 +314,10 @@ body {
     line-height: 1.5;
   }
 
+  /* RIBBON */
+
   .ribbon-viewport {
-    width: 100%;
+    width: 100vw;
     height: 340px;
     bottom: 75px;
   }
@@ -290,12 +327,14 @@ body {
   }
 
   .ribbon-card-wrapper {
-    width: 72px;
+    width: calc((100vw - 173px) / 4);
   }
 
   .ribbon-card {
     height: 115px;
   }
+
+  /* MAIN IMAGE */
 
   .ribbon-card-wrapper.main-attraction {
     width: 125px;
@@ -304,6 +343,8 @@ body {
   .ribbon-card-wrapper.main-attraction .ribbon-card {
     height: 320px;
   }
+
+  /* BUTTON */
 
   .controls {
     left: auto;
@@ -316,6 +357,10 @@ body {
     height: 40px;
   }
 }
+
+/* ==============================
+   SMALL MOBILE
+============================== */
 
 @media (max-width: 380px) {
   .testimonial-panel {
