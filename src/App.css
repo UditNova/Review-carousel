@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,64 +8,103 @@
 
 body {
   font-family: "Inter", sans-serif;
-  background-color: #0f0f0f;
-  color: #ffffff;
+  background: #ffffff;
+  color: #111111;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
 .ribbon-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
+  min-height: 550px;
   position: relative;
   overflow: hidden;
-  background-color: #121212;
+  background: #ffffff;
 }
 
-/* Fixed 5-slot viewport box */
+/* LEFT PANEL */
+
+.left-panel {
+  position: absolute;
+  left: 10%;
+  top: 34%;
+  width: 140px;
+  height: 230px;
+  z-index: 10;
+}
+
+.review-counter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.vertical-heading {
+  position: absolute;
+  top: 15px;
+  right: 5px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.decorative-circle {
+  position: absolute;
+  top: 85px;
+  left: 26px;
+  width: 45px;
+  height: 45px;
+  border: 1px solid #dedede;
+  border-radius: 50%;
+}
+
+/* MAIN IMAGE RIBBON */
+
 .ribbon-viewport {
-  width: 90vw;
-  max-width: 1300px;
+  position: absolute;
+  left: 0;
+  bottom: 63px;
+  width: 62%;
+  height: 485px;
   overflow: hidden;
-  padding: 20px 0 60px 0;
-  border-radius: 16px;
+  padding: 0;
 }
 
 .ribbon-track {
   display: flex;
-  gap: 16px;
+  gap: 18px;
   align-items: flex-end;
-  height: 420px;
+  height: 100%;
+  width: max-content;
   will-change: transform;
 }
 
-/* Base wrapper for card + hover info */
+/* CARD WRAPPERS */
+
 .ribbon-card-wrapper {
-  width: calc((100% - (4 * 16px)) / 5);
+  width: 102px;
+  height: 100%;
   flex-shrink: 0;
   display: flex;
-  flex-direction: column;
+  align-items: flex-end;
   position: relative;
   cursor: pointer;
 }
 
-/* Base styling for slots 1 to 4 with synchronized 0.8s transition */
 .ribbon-card {
   width: 100%;
-  height: 240px;
-  border-radius: 10px;
+  height: 140px;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  background-color: #1e1e1e;
   position: relative;
-  transform-origin: bottom right;
-  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.8s ease,
-    border 0.8s ease, height 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-  border: 2px solid transparent;
+  background: #eeeeee;
+  transition: height 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .ribbon-card img {
@@ -71,73 +112,222 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+  user-select: none;
+  pointer-events: none;
   transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* 5th Slot Main Attraction */
-.ribbon-card-wrapper.main-attraction .ribbon-card {
-  height: 380px;
-  transform: scale(1.03);
+/* MAIN ATTRACTION */
+
+.ribbon-card-wrapper.main-attraction {
+  width: 164px;
   z-index: 5;
+  cursor: default;
+}
+
+.ribbon-card-wrapper.main-attraction .ribbon-card {
+  width: 100%;
+  height: 482px;
+  transform: none;
 }
 
 .ribbon-card-wrapper.main-attraction .ribbon-card img {
   transform: scale(1.02);
 }
 
-/* Hover Details Panel for Slots 1-4 */
-.card-details {
-  margin-top: 12px;
-  opacity: 0;
-  transform: translateY(-6px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  text-align: left;
-  pointer-events: none;
-}
+/* TESTIMONIAL PANEL */
 
-.ribbon-card-wrapper:not(.main-attraction):hover .card-details {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.card-name {
-  font-size: 15px;
-  font-weight: 600;
-  color: #ffffff;
-  letter-spacing: 0.3px;
-  margin-bottom: 2px;
-}
-
-.card-title {
-  font-size: 13px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.55);
-}
-
-/* Control Section */
-.controls {
-  margin-top: 20px;
+.testimonial-panel {
+  position: absolute;
+  top: 34%;
+  left: 70%;
+  width: 28%;
+  max-width: 340px;
   z-index: 10;
 }
 
+.testimonial-author h3 {
+  font-size: 10px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #111111;
+}
+
+.testimonial-author p {
+  font-size: 9px;
+  color: #999999;
+  font-weight: 400;
+}
+
+.testimonial-content {
+  margin-top: 32px;
+}
+
+.testimonial-content h2 {
+  font-size: clamp(15px, 1.45vw, 19px);
+  font-weight: 700;
+  line-height: 1.65;
+  letter-spacing: -0.35px;
+  color: #111111;
+  max-width: 350px;
+}
+
+/* NAVIGATION BUTTON */
+
+.controls {
+  position: absolute;
+  left: 70%;
+  bottom: 10%;
+  z-index: 20;
+}
+
 .next-btn {
-  padding: 14px 32px;
-  font-size: 16px;
-  font-weight: 600;
-  background-color: #ffffff;
-  color: #121212;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
-  border-radius: 30px;
+  border-radius: 50%;
+  background: #ffc400;
+  color: #111111;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  transition: transform 0.25s ease, background 0.25s ease;
 }
 
 .next-btn:hover {
-  background-color: #e0e0e0;
-  transform: scale(1.05);
+  transform: scale(1.12);
+  background: #ffb900;
 }
 
 .next-btn:active {
-  transform: scale(0.98);
+  transform: scale(0.94);
+}
+
+.next-btn:disabled {
+  cursor: not-allowed;
+}
+
+/* TABLET */
+
+@media (max-width: 1024px) {
+  .left-panel {
+    left: 4%;
+  }
+
+  .ribbon-viewport {
+    width: 65%;
+  }
+
+  .testimonial-panel {
+    left: 70%;
+    width: 26%;
+  }
+
+  .testimonial-content h2 {
+    font-size: 15px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  body {
+    overflow: hidden;
+  }
+
+  .ribbon-container {
+    min-height: 600px;
+    height: 100svh;
+  }
+
+  .left-panel {
+    left: 7%;
+    top: 8%;
+    width: 100px;
+    height: 90px;
+  }
+
+  .review-counter {
+    top: 0;
+    font-size: 9px;
+  }
+
+  .vertical-heading {
+    top: 20px;
+    right: 0;
+    font-size: 12px;
+  }
+
+  .decorative-circle {
+    display: none;
+  }
+
+  .testimonial-panel {
+    top: 15%;
+    left: 27%;
+    width: 65%;
+    max-width: none;
+  }
+
+  .testimonial-content {
+    margin-top: 18px;
+  }
+
+  .testimonial-content h2 {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .ribbon-viewport {
+    width: 100%;
+    height: 340px;
+    bottom: 75px;
+  }
+
+  .ribbon-track {
+    gap: 12px;
+  }
+
+  .ribbon-card-wrapper {
+    width: 72px;
+  }
+
+  .ribbon-card {
+    height: 115px;
+  }
+
+  .ribbon-card-wrapper.main-attraction {
+    width: 125px;
+  }
+
+  .ribbon-card-wrapper.main-attraction .ribbon-card {
+    height: 320px;
+  }
+
+  .controls {
+    left: auto;
+    right: 8%;
+    bottom: 5%;
+  }
+
+  .next-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 380px) {
+  .testimonial-panel {
+    left: 30%;
+    width: 63%;
+  }
+
+  .testimonial-content h2 {
+    font-size: 13px;
+  }
+
+  .ribbon-card-wrapper.main-attraction {
+    width: 110px;
+  }
 }
